@@ -50,25 +50,7 @@ export default {
       console.log("task-toogle", id);
     },
   },
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text: "Buy Groceries",
-        day: "March 1st @ 10:30pm",
-        reminder: true,
-      },
-      {
-        id: 2,
-        text: "Sell Groceries",
-        day: "March 1st @ 11pm",
-        reminder: false,
-      },
-      { id: 3, text: "Do Laundry", day: "March 1st @ 12pm", reminder: false },
-      { id: 4, text: "Buy Funiture", day: "March 1st @ 13pm", reminder: true },
-      { id: 5, text: "Read a book", day: "March 1st @ 14pm", reminder: false },
-    ];
-  },
+  created() {},
 };
 </script>
 
