@@ -1,13 +1,74 @@
 <template>
   <div class="container">
-    <h1>Hello World</h1>
+    <Header
+      @show-add-task="openAddTask"
+      :isOpen="showAddTask"
+      heading="Task Tracker"
+    />
+    <div v-show="showAddTask">
+      <AddTask @add-task="addTask"></AddTask>
+    </div>
+    <Tasks
+      @delete-task="deleteTask"
+      @toogle-reminder="changeReminder"
+      :tasks="this.tasks"
+    ></Tasks>
   </div>
 </template>
 
 <script>
+import Header from "./components/Header";
+import Tasks from "./components/Tasks.vue";
+import AddTask from "./components/AddTask.vue";
 export default {
   name: "App",
-  components: {},
+  components: {
+    Header,
+    Tasks,
+    AddTask,
+  },
+  data() {
+    return {
+      tasks: [],
+      showAddTask: false,
+    };
+  },
+  methods: {
+    openAddTask() {
+      this.showAddTask = !this.showAddTask;
+    },
+    addTask(task) {
+      this.tasks = [...this.tasks, task];
+    },
+    deleteTask(id) {
+      this.tasks = this.tasks.filter((r) => r.id !== id);
+    },
+    changeReminder(id) {
+      this.tasks = this.tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      );
+      console.log("task-toogle", id);
+    },
+  },
+  created() {
+    this.tasks = [
+      {
+        id: 1,
+        text: "Buy Groceries",
+        day: "March 1st @ 10:30pm",
+        reminder: true,
+      },
+      {
+        id: 2,
+        text: "Sell Groceries",
+        day: "March 1st @ 11pm",
+        reminder: false,
+      },
+      { id: 3, text: "Do Laundry", day: "March 1st @ 12pm", reminder: false },
+      { id: 4, text: "Buy Funiture", day: "March 1st @ 13pm", reminder: true },
+      { id: 5, text: "Read a book", day: "March 1st @ 14pm", reminder: false },
+    ];
+  },
 };
 </script>
 
